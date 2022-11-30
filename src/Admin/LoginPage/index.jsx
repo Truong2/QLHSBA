@@ -1,10 +1,10 @@
 import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LogInAdmin = () => {
   const [form] = Form.useForm();
-
+  const navigate = useNavigate();
   return (
     <>
       <div className="overflow-y-hidden bg-[url('https://nhakhoanucuoiviet.vn/frontend/online/images/online_cover.jpg')] ">
@@ -75,6 +75,7 @@ const LogInAdmin = () => {
                         </Button>
                         <Button
                           type="primary"
+                          onClick={() => navigate("/Admin-Clinic/EMR")}
                           style={{
                             fontSize: "14px",
                             textAlign: "center",

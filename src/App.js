@@ -1,26 +1,41 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Client from "./Client/index";
 import Admin from "./Admin/index";
 import AdminCMS from "./Admin/CMS/index";
 import AdminEMR from "./Admin/EMR/index";
 import LogInClient from "./Client/Pages/LoginPage/index";
 import { Suspense } from "react";
+import Client from "./Client/index";
 import BookingCare from "./Client/Pages/Booking";
+import BookingCareDetail from "./Client/Pages/Booking/BookingCareDetail";
+import User from "./Client/AccountClient/Users";
+import { publicRoutes, privateRoutes } from "./Client/routersCliemt";
+import PrivateRoutes from "./App/permissions/PrivateRoute";
+import ScrollToTop from "./App/Components/ScrollToTop";
 
 function App() {
   return (
     <Suspense fallback={null}>
+      <ScrollToTop />
       <Routes>
-        <Route path="/" exact element={<Client />} />
-        <Route path="/client-Clinic/login" exact element={<LogInClient />} />
-        <Route path="/client-Clinic/viewMedicine" exact />
-        <Route path="/client-Clinic/medicalRecord" exact />
+        {/* Chia router cho trang khách hàng */}
+        {publicRoutes?.map((route, index) => {
+          const Page = route.component;
+          return <Route key={index} path={route.path} element={<Page />} />;
+        })}
+        <Route element={<PrivateRoutes />}>
+          {privateRoutes?.map((route, index) => {
+            const Page = route.component;
+            return (
+              <Route key={index} element={<Page />} path={route.path} exact />
+            );
+          })}
+        </Route>
         <Route path="/Admin-Clinic/login" exact element={<Admin />} />
         <Route path="/Admin-Clinic/CMS" exact element={<AdminCMS />} />
         <Route path="/Admin-Clinic/EMR" exact element={<AdminEMR />} />
-        <Route path="/booking" exact element={<BookingCare />} />
+        <Route path="/client-Clinic/Truong" exact element={<User />} />
       </Routes>
     </Suspense>
     // <Routes>
@@ -34,3 +49,31 @@ function App() {
 }
 
 export default App;
+// import { createContext, useState } from "react";
+// import { Route, Routes } from "react-router-dom";
+// import Client from "./Client/index";
+// import User from "./Client/AccountClient/Users";
+// import LogInClient from "./Client/Pages/LoginPage/index";
+// import BookingCare from "./Client/Pages/Booking";
+// import BookingCareDetail from "./Client/Pages/Booking/BookingCareDetail";
+// import PrivateRoutes from "./App/permissions/PrivateRoute";
+
+// export const UserContext = createContext();
+
+// function App() {
+//   const [user, setUser] = useState({ loggedIn: false });
+//   return (
+//     <Routes>
+//       <Route path="/" exact element={<Client />} />
+//       <Route path="/booking" exact element={<BookingCare />} />
+//       <Route path="/booking/1" exact element={<BookingCareDetail />} />
+//       <Route path="/client-Clinic/login" exact element={<LogInClient />} />
+//       <Route element={<PrivateRoutes />}>
+//         <Route element={<User />} path="/client-Clinic/Truong" exact />
+//         {/* <Route element={<Products/>} path="/products"/> */}
+//       </Route>
+//     </Routes>
+//   );
+// }
+
+// export default App;

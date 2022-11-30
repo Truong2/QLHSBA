@@ -49,7 +49,7 @@ const Doctors = () => {
                       }}
                     >
                       <img
-                        src={item.linkImg}
+                        src={item.avatar}
                         alt={item.title}
                         onError={handleErrorImage}
                       />
@@ -57,10 +57,10 @@ const Doctors = () => {
                         <p className=" group-hover:text-white">Bác sĩ</p>
                         <h5 className="text-[#5982C2] group-hover:text-white">
                           {" "}
-                          Trần Thị Thương Thương
+                          {item.name}
                         </h5>
                         <p className=" group-hover:text-white">
-                          Tốt nghiệp ĐH Y Dược Huế 2016, Bác sĩ chuyên ngành RHM
+                          {item.describe}
                         </p>
                       </div>
                     </div>

@@ -8,6 +8,7 @@ const AdminClinic = () => {
     <section className="flex flex-col bg-main mobile:bg-white">
       <main className="">
         <LogInAdmin />
+        {/* <LayoutDX type="ADMIN" Header={Header} LeftMenu={LeftMenu} routers={routers} /> */}
       </main>
     </section>
   );

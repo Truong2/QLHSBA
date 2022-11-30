@@ -1,20 +1,26 @@
 import { Button, Modal, Select, Space, Table, Tag } from "antd";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import PopUpSelect from "./popUpSelect";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import SearchCommon from "../../App/hooks/SearchCommon";
+import { DoctorsSlider } from "../Models/data";
 
 const Appointment = () => {
   const [isBooking, setIsBooking] = useState(false);
+  const [dataTable, setDataTable] = useState(DoctorsSlider);
+  const navigate = useNavigate();
   const onChange = (value) => {
-    console.log(`selected ${value}`);
+    if (value !== undefined) {
+      let data = DoctorsSlider?.filter((doctor) => doctor?.name === value);
+      setDataTable(data);
+    } else {
+      setDataTable(DoctorsSlider);
+    }
   };
   const onSearch = (value) => {
     console.log("search:", value);
   };
   const columns = [
     {
-      // title: "Avatar",
       dataIndex: "avatar",
       key: "avatar",
       render: (value, record) => (
@@ -22,77 +28,28 @@ const Appointment = () => {
           <img src={value} alt="" />
         </div>
       ),
+      width: "10%",
     },
     {
-      // title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <Link to="booking">{text}</Link>,
+      render: (text, record) => <Link to="booking/1">{text}</Link>,
       width: "30%",
     },
     {
-      // title: "Age",
       dataIndex: "age",
       key: "age",
-      width: "5%",
+      width: "10%",
     },
     {
-      // title: "Address",
       dataIndex: "address",
       key: "address",
-      width: "35%",
-    },
-    {
-      // title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-      width: "25%",
     },
   ];
-  const data = [
-    {
-      avatar: "https://nhakhoanucuoiviet.vn/uploads/static/CTT.jpg",
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      avatar: "https://nhakhoanucuoiviet.vn/uploads/static/CTT.jpg",
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      avatar: "https://nhakhoanucuoiviet.vn/uploads/static/CTT.jpg",
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+
   function listDoctor() {
     return [
-      ...data.map((e) => ({
+      ...DoctorsSlider.map((e) => ({
         label: e.name,
         value: e.name,
       })),
@@ -149,6 +106,19 @@ const Appointment = () => {
           <div className="font-bold text-base justify-center flex mb-4 uppercase">
             Danh sách bác sỹ
           </div>
+          <Button
+            size="large"
+            onClick={() => navigate("/booking")}
+            style={{
+              float: "right",
+              marginBottom: "20px",
+              background: "rgb(56,170,158)",
+              color: "white",
+              borderRadius: "10px",
+            }}
+          >
+            Xem tất cả
+          </Button>
           <Select
             allowClear
             showArrow
@@ -158,6 +128,7 @@ const Appointment = () => {
             placeholder="Bác sỹ: Tất cả"
             onChange={onChange}
             onSearch={onSearch}
+            onClear={() => setDataTable(DoctorsSlider)}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
@@ -165,7 +136,7 @@ const Appointment = () => {
             autoFocus
           />
         </div>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={dataTable} />
       </Modal>
     </div>
   );

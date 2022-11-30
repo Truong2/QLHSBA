@@ -216,7 +216,10 @@ const Header = ({ isBooking = true }) => {
                 height: "50px",
                 borderRadius: "10px",
               }}
-              onClick={() => navigate("/client-Clinic/login")}
+              onClick={() => {
+                console.log("check");
+                navigate("/client-Clinic/login");
+              }}
             >
               Bệnh án điện tử
             </Button>

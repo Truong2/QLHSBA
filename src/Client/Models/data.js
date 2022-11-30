@@ -16,8 +16,15 @@ import Service9 from "../../App/Images/service_9.jpg";
 import Service10 from "../../App/Images/service_10.jpg";
 import Service11 from "../../App/Images/service_11.jpg";
 import Service12 from "../../App/Images/service_12.jpg";
+
 import Doctor1 from "../../App/Images/doctor_1.jpg";
 import Doctor2 from "../../App/Images/doctor_2.jpg";
+import Doctor3 from "../../App/Images/doctor_3.jpg";
+import Doctor4 from "../../App/Images/doctor_4.jpg";
+import Doctor5 from "../../App/Images/doctor_5.jpg";
+import Doctor6 from "../../App/Images/doctor_6.jpg";
+import Doctor7 from "../../App/Images/doctor_7.jpg";
+
 import logo1 from "../../App/Images/logo_1.jpg";
 import logo2 from "../../App/Images/logo_2.jpg";
 import logo3 from "../../App/Images/logo_3.jpg";
@@ -120,31 +127,59 @@ export const Services = [
 export const DoctorsSlider = [
   {
     id: 1,
-    linkImg: Doctor1,
+    name: "Nguyễn Phương Thanh",
+    avatar: Doctor1,
+    age: 28,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược Huế 2016, Bác sĩ chuyên ngành RHM",
   },
   {
     id: 2,
-    linkImg: Doctor2,
+    name: "Nguyễn Văn B",
+    avatar: Doctor2,
+    age: 29,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược Huế 2014, Bác sĩ chuyên ngành RHM",
   },
   {
     id: 3,
-    linkImg: Doctor1,
+    name: "Nguyễn Văn C",
+    avatar: Doctor3,
+    age: 32,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược Huế 2015, Bác sĩ chuyên ngành RHM",
   },
   {
     id: 4,
-    linkImg: Doctor1,
+    name: "Trân Thu Trang",
+    avatar: Doctor4,
+    age: 33,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược Huế 2018, Bác sĩ chuyên ngành RHM",
   },
   {
     id: 5,
-    linkImg: Doctor1,
+    name: "Nguyễn Văn Bin",
+    avatar: Doctor5,
+    age: 30,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược Huế 2019, Bác sĩ chuyên ngành RHM",
   },
   {
     id: 6,
-    linkImg: Doctor1,
+    name: "Nguyễn Thu Phương",
+    avatar: Doctor6,
+    age: 26,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược TP.HCM 1997, Bác sĩ chuyên ngành RHM",
   },
   {
     id: 7,
-    linkImg: Doctor1,
+    name: "Nguyễn Văn Trường",
+    avatar: Doctor7,
+    age: 34,
+    address: "New York No. 1 Lake Park",
+    describe: "Tốt nghiệp ĐH Y Dược TP.HCM 2002, Bác sĩ chuyên ngành RHM",
   },
 ];
 
@@ -223,34 +258,34 @@ export const DonorsSlide = [
 export const Schedule = [
   {
     id: 1,
-    time: "08:00 - 08:30",
+    time: "08:00 - 09:00",
   },
   {
     id: 2,
-    time: "08:30 - 09:00",
+    time: "09:00 - 10:00",
   },
   {
     id: 3,
-    time: "09:00 - 09:30",
+    time: "10:00 - 11:00",
   },
   {
     id: 4,
-    time: "09:30 - 10:00",
+    time: "11:00 - 12:00",
   },
   {
     id: 5,
-    time: "10:00 - 10:30",
+    time: "13:30 - 14:30",
   },
   {
     id: 6,
-    time: "10:30 - 11:00",
+    time: "14:30 - 15:30",
   },
   {
     id: 7,
-    time: "11:00 - 11:30",
+    time: "15:30 - 16:30",
   },
   {
-    id: 1,
-    time: "14:00 - 14:30",
+    id: 8,
+    time: "16:30 - 17:30",
   },
 ];

@@ -1,10 +1,59 @@
 import { Button, Form, Input } from "antd";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  validateEmail,
+  validatePassword,
+  validateRequireInput,
+} from "../../../App/validator";
+import { UserContext } from "../../../App";
+const { Item } = Form;
 
 const LogInClient = () => {
-  const [form] = Form.useForm();
+  // const { user, setUser } = useContext(UserContext);
+  // const isLoggedIn = user.loggedIn;
 
+  const accounts = [
+    {
+      account: "truong8dt@gmail.com",
+      password: "Truong1234@",
+      id: "736023",
+      role: true,
+    },
+    {
+      account: "truong8dt@gmail.com",
+      password: "Truong123@",
+      id: "736024",
+      role: false,
+    },
+  ];
+  const [isDone, setIsDone] = useState();
+  const [isDirty, setIsDirty] = useState(false);
+  const navigate = useNavigate();
+  function onFinish(values) {
+    accounts?.map((item) => {
+      if (
+        values?.account === item?.account &&
+        values?.password === item?.password
+      ) {
+        debugger;
+        if (item?.role) {
+          localStorage.setItem("token", item?.role);
+          navigate(`/client-Clinic/${item?.id}`);
+        } else {
+          localStorage.setItem("token", item?.role);
+          return false;
+        }
+      } else if (
+        values?.account !== item?.account ||
+        values?.password !== item?.password
+      ) {
+        setIsDone(true);
+        localStorage.setItem("token", !isDone);
+      }
+    });
+    setIsDirty(false);
+  }
   return (
     <>
       <div className="overflow-y-hidden bg-[url('https://nhakhoanucuoiviet.vn/frontend/online/images/online_cover.jpg')] ">
@@ -36,9 +85,21 @@ const LogInClient = () => {
                   >
                     <div className="text-[#585858] uppercase text-2xl font-normal text-center mb-5">
                       Bệnh án điện tử
+                      {isDone && (
+                        <div className="text-red-600 text-base normal-case p-5 mt-5 bg-red-200">
+                          Tài khoàn hoặc mật khẩu không chính xác
+                        </div>
+                      )}
                     </div>
-                    <Form form={form} layout="vertical">
-                      <Form.Item
+                    <Form
+                      onFinish={(value) => {
+                        onFinish(value);
+                      }}
+                      onValuesChange={() => !isDirty && setIsDirty(true)}
+                      layout="vertical"
+                    >
+                      <Item
+                        name="account"
                         label={
                           <>
                             <span className="text-xl text-[#1875BC]">
@@ -46,10 +107,16 @@ const LogInClient = () => {
                             </span>
                           </>
                         }
+                        required
+                        rules={[
+                          validateRequireInput("Không bỏ trống trường này"),
+                          validateEmail("Vui lòng nhập đúng định dạng email"),
+                        ]}
                       >
-                        <Input placeholder="" />
-                      </Form.Item>
-                      <Form.Item
+                        <Input placeholder="Nhập email" />
+                      </Item>
+                      <Item
+                        name="password"
                         label={
                           <>
                             <span className="text-xl text-[#1875BC]">
@@ -57,22 +124,32 @@ const LogInClient = () => {
                             </span>
                           </>
                         }
+                        required
+                        rules={[
+                          validateRequireInput("Không bỏ trống trường này"),
+                          validatePassword(
+                            "Vui lòng nhập đúng định dạng: bao gồm chữ, số và các ký tự đặc biệt"
+                          ),
+                        ]}
                       >
-                        <Input placeholder="" />
-                      </Form.Item>
-                      <Form.Item
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
+                        <Input.Password placeholder="Nhập mật khẩu" />
+                      </Item>
+
+                      <div className="text-center my-8">
                         <Button
+                          size="large"
                           type="primary"
+                          disabled={!isDirty}
+                          htmlType="submit"
                           style={{
-                            fontSize: "14px",
+                            width: "170px",
+                            marginLeft: "10px",
                             textAlign: "center",
                           }}
                         >
                           Đăng nhập
                         </Button>
-                      </Form.Item>
+                      </div>
                     </Form>
                   </div>
                 </div>
