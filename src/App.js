@@ -26,6 +26,7 @@ function App() {
     <Suspense fallback={null}>
       <ScrollToTop />
       <Routes>
+        {/* Test PR */}
         {/* Chia router cho trang khách hàng */}
         {/* {publicRoutes?.map((route, index) => {
           const Page = route.component;
