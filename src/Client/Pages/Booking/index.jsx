@@ -63,10 +63,8 @@ const BookingCare = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden">
-      {/* Header */}
-      <Header isBooking={false} />
-      <div className=" bg-[rgb(238,238,238)]">
+    <div className="overflow-hidden ">
+      <div className=" bg-[rgb(238,238,238)] pt-10">
         {DoctorsSlider?.map((item) => (
           <div
             key={item.id}
@@ -159,8 +157,6 @@ const BookingCare = () => {
           timeSchedule={timeSchedule}
         />
       )}
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

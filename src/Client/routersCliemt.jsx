@@ -6,10 +6,10 @@ import LogInClient from "./Pages/LoginPage";
 
 // publicRoutes
 const publicRoutes = [
-  { path: "/", component: HomePage },
-  { path: "/booking", component: BookingCare },
-  { path: "/booking/:ID", component: BookingCareDetail },
-  { path: "/Client-Clinic/login", component: LogInClient },
+  { path: "", component: HomePage },
+  { path: "booking", component: BookingCare },
+  { path: "booking/:ID", component: BookingCareDetail },
+  { path: "Client-Clinic/login", component: LogInClient },
 ];
 const privateRoutes = [{ path: "/client-Clinic/:ID", component: User }];
 export { publicRoutes, privateRoutes };

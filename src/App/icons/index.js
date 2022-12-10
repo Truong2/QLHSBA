@@ -1,3 +1,3 @@
 import SearchIcon from "./SearchIcon";
-
-export { SearchIcon };
+import DeleteBin from "./DeleteIcon";
+export { SearchIcon, DeleteBin };

@@ -14,8 +14,6 @@ import Donors from "../../components/Donors";
 const HomePage = () => {
   return (
     <div className="overflow-hidden">
-      {/* Header */}
-      <Header />
       {/* Slider */}
       <SliderHomepage />
       {/* Wrapper */}
@@ -32,8 +30,6 @@ const HomePage = () => {
       <News />
       {/* Đối tác */}
       <Donors />
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

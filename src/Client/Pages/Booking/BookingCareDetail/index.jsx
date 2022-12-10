@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Footer from "../../../components/Footer";
 import Header from "../../../components/Header";
-import { Button, Calendar, Card, Modal, Select } from "antd";
+import { Breadcrumb, Button, Calendar, Card, Modal, Select } from "antd";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import localization from "moment/locale/vi";
 import PopUpSchedule from "../PopupSchedule";
 import { Schedule } from "../../../Models/data";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 const { Option } = Select;
@@ -34,7 +35,19 @@ const BookingCareDetail = () => {
   return (
     <div className="overflow-hidden">
       {/* Header */}
-      <Header isBooking={false} />
+      <div className="w-[100%] py-5 bg-[#45C3D2] px-10 pt-10">
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">
+            <HomeOutlined style={{ fontSize: "20px" }} />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href="#" style={{ display: "contents" }}>
+            <UserOutlined style={{ fontSize: "20px" }} />
+            <span style={{ marginLeft: "20px", fontSize: "14px" }}>
+              John Brown
+            </span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
+      </div>
       <div className=" bg-[rgb(238,238,238)]">
         <div className="p-4 max-w-[1210px] w-[100%] mx-auto my-0">
           <div className="bg-white p-10 items-start flex-row">
@@ -162,8 +175,6 @@ const BookingCareDetail = () => {
           timeSchedule={timeSchedule}
         />
       )}
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

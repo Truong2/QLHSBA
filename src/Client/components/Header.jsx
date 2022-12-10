@@ -8,14 +8,15 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import clsx from "clsx";
 
-const Header = ({ isBooking = true }) => {
+const Header = () => {
+  let navigate = useNavigate();
+  const location = useLocation();
   const [current, setCurrent] = useState("mail");
   const [scrollHeader, setScrollHeader] = useState(false);
-
   useEffect(() => {
     const handleScroll = (event) => {
       if (window.scrollY >= 200) {
@@ -32,10 +33,13 @@ const Header = ({ isBooking = true }) => {
     };
   }, []);
   const onClick = (e) => {
-    console.log("click ", e);
+    if (e.key === "home") {
+      navigate("/");
+    } else {
+      navigate(e.key);
+    }
     setCurrent(e.key);
   };
-  let navigate = useNavigate();
 
   const items = [
     {
@@ -193,6 +197,11 @@ const Header = ({ isBooking = true }) => {
         },
       ],
     },
+    {
+      label: "Đăng ký khám ",
+      key: "booking",
+      disabled: false,
+    },
   ];
   return (
     <>
@@ -243,49 +252,34 @@ const Header = ({ isBooking = true }) => {
           </div>
         </div>
       </header>
-      {isBooking ? (
-        <div
-          className={
-            scrollHeader
-              ? ""
-              : "z-10 relative top-[25px] w-[100%] max-w-[1210px] my-0 mx-auto"
-          }
-        >
-          <Affix offsetTop={0}>
-            <Menu
-              onClick={onClick}
-              selectedKeys={[current]}
-              mode="horizontal"
-              items={items}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                color: "rgb(0,124,194)",
-                alignItems: "center",
-                borderTop: "1px solid #e4e4e4",
-                borderBottom: "3px solid #007cc2",
-                borderRadius: scrollHeader ? "" : "10px",
-                padding: "10px",
-                textTransform: "uppercase",
-              }}
-            />
-          </Affix>
-        </div>
-      ) : (
-        <div className="w-[100%] py-5 bg-[#45C3D2] px-10">
-          <Breadcrumb>
-            <Breadcrumb.Item href="/">
-              <HomeOutlined style={{ fontSize: "20px" }} />
-            </Breadcrumb.Item>
-            <Breadcrumb.Item href="#" style={{ display: "contents" }}>
-              <UserOutlined style={{ fontSize: "20px" }} />
-              <span style={{ marginLeft: "20px", fontSize: "14px" }}>
-                John Brown
-              </span>
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </div>
-      )}
+
+      <div
+        className={
+          scrollHeader
+            ? ""
+            : "z-10 relative top-[25px] w-[100%] max-w-[1210px] my-0 mx-auto"
+        }
+      >
+        <Affix offsetTop={0}>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={items}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              color: "rgb(0,124,194)",
+              alignItems: "center",
+              borderTop: "1px solid #e4e4e4",
+              borderBottom: "3px solid #007cc2",
+              borderRadius: scrollHeader ? "" : "10px",
+              padding: "10px",
+              textTransform: "uppercase",
+            }}
+          />
+        </Affix>
+      </div>
     </>
   );
 };

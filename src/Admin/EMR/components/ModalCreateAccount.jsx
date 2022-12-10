@@ -22,6 +22,7 @@ const ModalCreateAccount = ({
       visible={createAccount}
       okButtonProps={{ disabled: !isDirty }}
       onCancel={() => setCreateAccount(false)}
+      onOk={() => setCreateAccount(false)}
       centered
       closable={false}
       footer={null}
@@ -43,16 +44,16 @@ const ModalCreateAccount = ({
       </div>
 
       <Form
-        form={form}
         onFinish={(value) => {
           let valueForm = {
-            id: Math.floor(Math.random() * 101),
+            id: `${Math.floor(Math.random() * 101)}`,
             name: value.name,
             email: value.email,
             permissions: value.permissions?.toString(),
           };
           console.log(valueForm);
           setDataTable([...dataTable, valueForm]);
+          setCreateAccount(false);
         }}
         onValuesChange={() => !isDirty && setIsDirty(true)}
         className="text-base grid gap-4"
@@ -205,7 +206,6 @@ const ModalCreateAccount = ({
             type="primary"
             disabled={!isDirty}
             htmlType="submit"
-            // onClick={() => setCreateAccount(false)}
             style={{
               width: "170px",
               marginLeft: "10px",

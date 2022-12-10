@@ -8,14 +8,13 @@ import {
 } from "../../../App/validator";
 
 const { Item } = Form;
-const ModalCreateAccount = ({
+const ModalEditAccount = ({
   editAccount,
   setEditAccount,
   itemAccount,
   form,
   dataTable,
   setDataTable,
-  setDataItem,
 }) => {
   const [isDirty, setIsDirty] = useState(false);
   useEffect(() => {
@@ -35,7 +34,7 @@ const ModalCreateAccount = ({
       indexValueAccount + 1
     );
 
-    setDataItem(dataEdit);
+    setDataTable(dataEdit);
   };
   return (
     <Modal
@@ -206,4 +205,4 @@ const ModalCreateAccount = ({
   );
 };
 
-export default ModalCreateAccount;
+export default ModalEditAccount;

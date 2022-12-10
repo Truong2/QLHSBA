@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 
 const index = () => {
@@ -7,6 +8,7 @@ const index = () => {
       <div className="">
         <HomePage />
       </div>
+      <Outlet />
     </>
   );
 };
