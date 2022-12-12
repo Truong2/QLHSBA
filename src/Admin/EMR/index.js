@@ -13,12 +13,9 @@ import { Header } from "antd/lib/layout/layout";
 import React, { useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import EMR from "../../App/Images/EMR.png";
-import ListAccount from "./Account/ListAccount";
-import Schedule from "./Appointment/Schedule";
-import ListPermission from "./permission/permission";
-import ListPatient from "./Patient/Patient";
-import ExaminationProcess from "./ExaminationProcess";
-
+import routesAdmin from "../common/config/routersAdmin";
+import "../../Admin/styles/theme.less";
+import "../../Admin/styles/index.scss";
 const { Sider } = Layout;
 
 const AdminEMR = () => {
@@ -76,17 +73,20 @@ const AdminEMR = () => {
   //     ),
   //   },
   // ];
+
   function Content() {
+    const generateRoutes = () => {
+      let result = null;
+      result = routesAdmin.map((route) => {
+        return (
+          <Route key={route.id} path={route.path} element={route.element} />
+        );
+      });
+      return result;
+    };
     return (
       <div>
-        <Routes>
-          <Route path="/" element={<div>Home</div>} />
-          <Route path="/patient" element={<ListPatient />} />
-          <Route path="/hospital-history" element={<ExaminationProcess />} />
-          <Route path="/account" element={<ListAccount />} />
-          <Route path="/permission" element={<ListPermission />} />
-          <Route path="/appointment" element={<Schedule />} />
-        </Routes>
+        <Routes>{generateRoutes()}</Routes>
       </div>
     );
   }

@@ -1,341 +1,425 @@
-import { EditOutlined } from "@ant-design/icons";
-import { Button, Drawer, Form, Modal, Select, Table, Tag } from "antd";
-import React from "react";
-import { useState } from "react";
-import SearchCommon from "../../../App/hooks/SearchCommon";
-import { DeleteBin } from "../../../App/icons";
-import ModalPatient from "./ModalPatient";
+import {
+  DeleteFilled,
+  EditFilled,
+  PlusSquareFilled,
+  SearchOutlined,
+  SettingFilled,
+} from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  ConfigProvider,
+  Divider,
+  Drawer,
+  Form,
+  Image,
+  Input,
+  List,
+  Radio,
+  Row,
+  Table,
+  Typography,
+} from "antd";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { TYPE_FIELD } from "../../common/constant";
+import renderInputForm from "../../common/utils/renderInputForm";
+import patientList from "../../dummy/patientList";
+import MyDialog from "../components/common/MyDialog";
 
-let dataSource = [
-  {
-    key: "1",
-    id: "1",
-    codePatient: "BN1663752393",
-    name: "Phạm Văn Vinh",
-    phone: "0964463235",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Ông",
-    email: "phamvinh123@gmail.com",
-    cccd: "125913276",
-    job: "Sinh viên",
-    sex: "Nam",
-    // dateBirth: "10/10/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Độc thân",
-  },
-  {
-    key: "2",
-    id: "2",
-    codePatient: "BN1663752394",
-    name: "Phạm Văn Bình",
-    phone: "0964463235",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Ông",
-    email: "phamvinh123@gmail.com",
-    cccd: "125913276",
-    job: "Sinh viên",
-    sex: "Nam",
-    // dateBirth: "10/12/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Độc thân",
-  },
-  {
-    key: "3",
-    id: "3",
-    codePatient: "BN1663752395",
-    name: "Phạm Văn Nam",
-    phone: "0964463235",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Ông",
-    email: "PhamNam123@gmail.com",
-    cccd: "12593313276",
-    job: "Sinh viên",
-    sex: "Nam",
-    // dateBirth: "1/10/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Độc thân",
-  },
-  {
-    key: "4",
-    id: "4",
-    codePatient: "BN1663752396",
-    name: "Trần Văn Công",
-    phone: "0964463235",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Ông",
-    email: "vancong123@gmail.com",
-    cccd: "12591033276",
-    job: "Giáo viên",
-    sex: "Nam",
-    // dateBirth: "10/12/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Kết hôn",
-  },
-  {
-    key: "5",
-    id: "5",
-    codePatient: "BN1663752397",
-    name: "Nguyễn Thị Châu",
-    phone: "0964463235",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Bà",
-    email: "Chauchau123@gmail.com",
-    cccd: "12305913276",
-    job: "Công nhân",
-    sex: "Nữ",
-    // dateBirth: "10/2/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Ly hôn",
-  },
-  {
-    key: "6",
-    id: "6",
-    codePatient: "BN1663752398",
-    name: "Nguyễn Thị Minh Anh",
-    phone: "0978888888",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Bà",
-    email: "minhAnh123@gmail.com",
-    cccd: "12305913276",
-    job: "Công nhân",
-    sex: "Nữ",
-    // dateBirth: "10/2/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Độc thân",
-  },
-  {
-    key: "7",
-    id: "7",
-    codePatient: "BN1663752399",
-    name: "Trần Văn Nam",
-    phone: "0964433335",
-    address: "Xã Bộc Bố, Huyện Pác Nặm, Tỉnh Bắc Kạn",
-    update: "2022-11-04 11:28:23",
-    vocative: "Ông",
-    email: "Nam123@gmail.com",
-    cccd: "12591033276",
-    job: "Giáo viên",
-    sex: "Nam",
-    // dateBirth: "10/12/2002",
-    nationality: "Việt Nam",
-    ethnic: "Kinh",
-    maritalStatus: "Kết hôn",
-  },
-];
-const ListPatient = () => {
-  const [form] = Form.useForm();
-  const [dataTable, setDataTable] = useState(dataSource);
+function ListCamera() {
+  const titleTable = "Bộ dữ liệu";
+  const loading = false;
+  const [rowSelection, setRowSelection] = useState({});
   const [open, setOpen] = useState(false);
-  const [type, setType] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectPatient, setSelectPatient] = useState(false);
-  const [itemPatients, setItemPatients] = useState();
-  const showDrawer = () => {
+  const [hideColumn, setHideColumn] = useState([
+    { key: 0, checked: false },
+    { key: 1, checked: false },
+    { key: 2, checked: false },
+    { key: 3, checked: false },
+    { key: 4, checked: false },
+    { key: 5, checked: false },
+    { key: 6, checked: false },
+    { key: 7, checked: false },
+    { key: 8, checked: false },
+    { key: 9, checked: false },
+    { key: 10, checked: false },
+    { key: 11, checked: false },
+  ]);
+  const [isVisibleDeleteUser, setIsVisibleDeleteUser] = useState({
+    isShow: false,
+    id: null,
+  });
+  const [pagination, setPagination] = useState({
+    current: 1,
+    skip: 0,
+    take: 10,
+    total: 0,
+  });
+
+  const handleRecord = (record) => {
+    console.log("record", record);
+  };
+
+  const onOpenModal = (id) => {
+    document.body.classList.add("salmon");
+    setIsVisibleDeleteUser({
+      isShow: true,
+      id,
+    });
+  };
+
+  const onCloseModal = () => {
+    document.body.classList.remove("salmon");
+    setIsVisibleDeleteUser({
+      isShow: false,
+      id: null,
+    });
+  };
+
+  const onChangeTable = (newPagination) => {
+    setPagination({
+      ...pagination,
+      current: newPagination.current,
+      skip: (newPagination.current - 1) * pagination.take,
+      take: newPagination.pageSize,
+    });
+  };
+
+  const columns = [
+    {
+      hidden: hideColumn[0]?.checked,
+      title: "Tên bệnh nhân",
+      dataIndex: "name",
+      key: "name",
+      fixed: "left",
+      render: (_, values) => {
+        return (
+          <a className="fw-600" style={{ color: "#000000" }}>
+            {values.name}
+          </a>
+        );
+      },
+      width: 200,
+    },
+    {
+      hidden: hideColumn[1].checked,
+      title: "Giới tính",
+      dataIndex: "sex",
+      key: "sex",
+      width: 80,
+    },
+    {
+      hidden: hideColumn[2].checked,
+      title: "Năm sinh",
+      dataIndex: "birth",
+      key: "birth",
+      width: 160,
+    },
+    {
+      hidden: hideColumn[3].checked,
+      title: "Mã bệnh nhân",
+      dataIndex: "patientCode",
+      key: "patientCode",
+      width: 150,
+    },
+    {
+      hidden: hideColumn[4].checked,
+      title: "Mã bệnh án",
+      dataIndex: "patientNoteCode",
+      key: "patientNoteCode",
+      width: 120,
+    },
+    {
+      hidden: hideColumn[5].checked,
+      title: "Phòng",
+      dataIndex: "room",
+      key: "room",
+      width: 200,
+    },
+    {
+      hidden: hideColumn[6].checked,
+      title: "Giường",
+      dataIndex: "bed",
+      key: "bed",
+      width: 100,
+    },
+    {
+      hidden: hideColumn[7].checked,
+      title: "Khoa điều trị",
+      dataIndex: "department",
+      key: "department",
+      width: 220,
+    },
+    {
+      hidden: hideColumn[8].checked,
+      title: "Ngày vào",
+      dataIndex: "dayIn",
+      key: "dayIn",
+      width: 150,
+    },
+    {
+      hidden: hideColumn[9].checked,
+      title: "Chẩn đoán",
+      dataIndex: "diagnose",
+      key: "diagnose",
+      width: 400,
+    },
+    {
+      hidden: hideColumn[10].checked,
+      title: "Bác sĩ điều trị",
+      dataIndex: "doctor",
+      key: "doctor",
+      width: 200,
+    },
+    {
+      hidden: hideColumn[11].checked,
+      title: "Hành động",
+      key: "action",
+      width: 140,
+    },
+  ].filter((item) => !item.hidden);
+
+  const fieldsDataForm = [
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+    {
+      type: TYPE_FIELD.SELECT,
+      name: "resolutionId",
+      label: "Tên bệnh nhân",
+      placeholder: "Bệnh nhân A",
+      colWidth: 6,
+    },
+  ];
+
+  const onSearch = (event) => {
+    if (event.key === "Enter") {
+      // handleSearchData(event.target.value);
+    }
+  };
+
+  const handlePlusButton = () => {};
+  const handleSettingButton = () => {
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
   };
-  const handleClickView = (record) => {
-    setType("view");
-    setIsModalVisible(true);
-    setItemPatients(record);
-  };
-  const handleEditPatient = (record) => {
-    setType("edit");
-    setIsModalVisible(true);
-    setItemPatients(record);
-  };
-  const handleDeletePatient = (record) => {
-    console.log(record);
-  };
-  function ListPatient() {
-    return [
-      ...dataSource.map((e) => ({
-        label: e.name,
-        value: e.name,
-      })),
-    ];
-  }
-  const columns = [
-    {
-      title: "Id",
-      dataIndex: "id",
-      key: "id",
-      width: "5%",
-    },
-    {
-      title: "Mã bệnh nhân",
-      dataIndex: "codePatient",
-      key: "codePatient",
-      width: "12%",
-    },
-    {
-      title: "Họ và Tên",
-      dataIndex: "name",
-      key: "name",
-      render: (value, record) => (
-        <Button
-          className="p-0 m-0"
-          type="link"
-          onClick={() => handleClickView(record)}
-          style={{ color: "#2c3d94", display: "flex", fontSize: "16px" }}
-        >
-          {value}
-        </Button>
-      ),
-      width: "18%",
-      align: "center",
-      sorter: (a, b) => {
-        const arrNameA = a.name.split(" ");
-        const arrNameB = b.name.split(" ");
-        return arrNameA[arrNameA.length - 1].localeCompare(
-          arrNameB[arrNameB.length - 1]
-        );
-      },
-      ellipsis: true,
-    },
-    {
-      title: "Số điện thoại",
-      dataIndex: "phone",
-      key: "phone",
-      width: "10%",
-    },
-    {
-      title: "Địa chỉ",
-      dataIndex: "address",
-      key: "address",
-    },
+  const placeholderSearch = "Tìm kiếm nhanh...";
+  const titleRedirectAddPage = "";
 
-    {
-      title: "Hành động",
-      dataIndex: "",
-      key: "x",
-      align: "center",
-      render: (value, record) => (
-        <>
-          <div className="">
-            <Button
-              type="text "
-              className="text-black p-2"
-              onClick={() => handleEditPatient(record)}
-              icon={<EditOutlined style={{ fontSize: "20px" }} />}
-            />
-            <Button
-              type="text "
-              onClick={() => handleDeletePatient(record)}
-              className="text-black p-2"
-              icon={<DeleteBin style={{ fontSize: "20px" }} />}
-            />
-          </div>
-        </>
-      ),
-      width: "12%",
-    },
-    {
-      title: "Cập nhật",
-      dataIndex: "update",
-      key: "update",
-      width: "15%",
-    },
+  const configPagination = {
+    position: ["bottomRight"],
+    pageSize: pagination?.take,
+    current: pagination?.current,
+    total: pagination?.total,
+  };
+
+  const dataOptionsTable = [
+    { key: 0, name: "Tên bệnh nhân" },
+    { key: 1, name: "Giới tính" },
+    { key: 2, name: "Năm sinh" },
+    { key: 3, name: "Mã bệnh nhân" },
+    { key: 4, name: "Mã bệnh án" },
+    { key: 5, name: "Phòng" },
+    { key: 6, name: "Giường" },
+    { key: 7, name: "Khoa điều trị" },
+    { key: 8, name: "Ngày vào" },
+    { key: 9, name: "Chẩn đoán" },
+    { key: 10, name: "Bác sĩ điều trị" },
+    { key: 11, name: "Hành động" },
   ];
-  // console.log(dataTable);
-  return (
-    <div className="mx-4">
-      <div className="py-[15px] px-2">
-        <div className="container-fluid">
-          <div className="flex items-center justify-start mx-4">
-            <div className="mr-4 pt-2">
-              <h1 className="uppercase text-xl">Danh Sách Bệnh Nhân</h1>
-            </div>
-            <div className="flex items-center justify-center">
-              <Button
-                size="large"
-                type="primary"
-                onClick={() => {
-                  setType("create");
-                  setIsModalVisible(true);
-                }}
-                // onClick={showDrawer}
-              >
-                <i className="fas fa-plus"></i> Thêm Bệnh Nhân mới
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="">
-        <div className="flex items-center justify-between ">
-          <SearchCommon
-            placeholder="Nhập tên, mã bệnh nhân"
-            // onSearch={(value) => onChangeOneParam('address')(value)}
-            className="w-1/5"
-            style={{ width: "40%" }}
-            autoFocus
-            // defaultValue={query.get('address') || ''}
-          />
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => setSelectPatient(true)}
-            style={{ borderRadius: "5px" }}
-          >
-            <i class="fas fa-hand-pointer"></i>
-            Chọn bệnh nhân thăm khám
-          </Button>
-        </div>
-        <Table bordered={true} dataSource={dataTable} columns={columns} />
-      </div>
-      {isModalVisible && (
-        <ModalPatient
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          type={type}
-          itemPatients={itemPatients}
-          form={form}
-        />
-      )}
-      {selectPatient && (
-        <Modal
-          title="Chọn bệnh nhân thăm khám"
-          open={selectPatient}
-          onOk={() => setSelectPatient(false)}
-          // confirmLoading={confirmLoading}
-          onCancel={() => setSelectPatient(false)}
+  const onSubmitForm = () => {};
+  const handleCheckbox = (value) => {
+    const arr2 = [
+      { ...hideColumn[value], checked: !hideColumn[value].checked },
+    ];
+    const res = hideColumn.map(
+      (obj) => arr2.find((o) => o.key === obj.key) || obj
+    );
+    setHideColumn(res);
+  };
+  return (
+    <div className="patient-list-management pa-20">
+      <Row>
+        <Drawer
+          title="Cấu hình bộ dữ liệu"
+          placement="right"
+          onClose={onClose}
+          open={open}
         >
-          <Select
-            allowClear
-            showArrow
-            showSearch
-            // disabled={canView}
-            // suffixIcon={<SearchIcon />}
-            className="w-full flex-1"
-            placeholder="Lựa chọn bệnh nhân"
-            // onChange={onChangeSelect}
-            // onSearch={onSearch}
-            filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-            }
-            options={ListPatient()}
-            autoFocus
-          />
-        </Modal>
-      )}
+          <Card>
+            <List
+              header={
+                <List.Item>
+                  <List.Item.Meta title={<div>Tên cột</div>} />
+                  <div>Ẩn cột</div>
+                </List.Item>
+              }
+              dataSource={dataOptionsTable}
+              renderItem={(item) => (
+                <List.Item>
+                  <List.Item.Meta title={item.name} />
+                  <Checkbox onClick={() => handleCheckbox(item.key)} />
+                </List.Item>
+              )}
+            />
+          </Card>
+        </Drawer>
+        <MyDialog
+          textConfirm="confirm"
+          showModal={isVisibleDeleteUser.isShow}
+          handleCancel={onCloseModal}
+          handleOk={onCloseModal}
+          textBtnOk="ok"
+          textBtnCancel="cancel"
+        />
+      </Row>
+      <div className="patient-list-form">
+        <Divider
+          orientation="left"
+          className="fz-20 fw-600 patient-list-header pt-10 pb-10"
+        >
+          Tìm kiếm bệnh nhân
+        </Divider>
+        <Row
+          gutter={{
+            xs: 8,
+            sm: 16,
+            md: 24,
+            lg: 32,
+          }}
+          justify="center"
+        >
+          <Form
+            className="patient-list-form"
+            layout="vertical"
+            onFinish={onSubmitForm}
+          >
+            <Row justify="center">{renderInputForm(fieldsDataForm)}</Row>
+            <div className="pl-20 pb-20">
+              <Button className="fw-600 cancel-btn">CANCEL</Button>
+            </div>
+          </Form>
+        </Row>
+      </div>
+      <div className="my-table-default">
+        <Card
+          bordered={false}
+          title={titleTable}
+          extra={
+            <div className="display-flex js-flex-end">
+              <Input
+                onKeyPress={onSearch}
+                className="table-search"
+                name="searchValue"
+                type="text"
+                placeholder={placeholderSearch}
+                prefix={<SearchOutlined />}
+              />
+              <Row onClick={handlePlusButton} className="ml-20" align="middle">
+                <PlusSquareFilled className="fz-32 plus-btn" size="large" />
+                <span className="color-white fw-600 ml-5">
+                  {titleRedirectAddPage}
+                </span>
+              </Row>
+              <Row
+                onClick={handleSettingButton}
+                className="ml-20"
+                align="middle"
+              >
+                <SettingFilled className="fz-32 plus-btn" size="large" />
+                <span className="color-white fw-600 ml-5">
+                  {titleRedirectAddPage}
+                </span>
+              </Row>
+            </div>
+          }
+        >
+          <div className="table-responsive">
+            <Table
+              scroll={{ x: 1500 }}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              expandedRowRender={(record) => <p>{record.sex}</p>}
+              // eslint-disable-next-line consistent-return
+              rowClassName={(record) => {
+                if (record.name) {
+                  return "NotExpandible";
+                }
+              }}
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={patientList}
+              loading={loading}
+              pagination={configPagination}
+              className="table-custom"
+              rowKey={(record) => record.key || record.userId}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: (event) => {
+                    handleRecord(record);
+                  },
+                };
+              }}
+              onChange={onChangeTable}
+            />
+          </div>
+        </Card>
+      </div>
     </div>
   );
-};
+}
 
-export default ListPatient;
+ListCamera.propTypes = {};
+
+export default ListCamera;
