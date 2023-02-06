@@ -1,11 +1,11 @@
 export const DATE_FORMAT = "YYYY-MM-DD";
-export const DATE_FORMAT_DISPLAY = "YYYY年MM月DD日(ddd)";
-export const MONTH_FORMAT_DISPLAY = "MM月";
+export const DATE_FORMAT_DISPLAY = "YYYY/MM/DD/(ddd)";
+export const MONTH_FORMAT_DISPLAY = "MM";
 export const DATE_FORMAT_NORMAL = "YYYY/MM/DD";
 export const DATE_FORMAT_WITHOUT_YEAR = "DD/MM";
 export const DATE_FORMAT_DEFAULT = "MM/DD/YYYY";
-export const DATE_TIME_FORMAT = "YYYY年MM月DD日(ddd) HH:mm:ss";
-export const DATE_TIME_FORMAT_MINUTE = "YYYY年MM月DD日(ddd) HH:mm";
+export const DATE_TIME_FORMAT = "YYYY/MM/DD/(ddd) HH:mm:ss";
+export const DATE_TIME_FORMAT_MINUTE = "YYYY/MM/DD/(ddd) HH:mm";
 export const TIME_FORMAT_SECOND = "HH:mm:ss";
 
 export const TYPE_FIELD = {

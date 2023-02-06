@@ -1,6 +1,9 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import { uniqueId } from "lodash";
 import React, { useState } from "react";
+import { useMutation } from "react-query";
+import axios from "../../../App/api/axios";
+import { LOGIN_URL } from "../../../App/api/urlApi";
 import {
   validateEmail,
   validateMaxLengthStr,
@@ -15,8 +18,24 @@ const ModalCreateAccount = ({
   form,
   dataTable,
   setDataTable,
+  refetch,
 }) => {
   const [isDirty, setIsDirty] = useState(false);
+  const account = useMutation(
+    async (data) => {
+      const response = await axios.post(LOGIN_URL, data);
+      console.log(response);
+    },
+    {
+      onSuccess: () => {
+        message.success("Tạo tài khoản thành công");
+        refetch();
+      },
+      onError: (err) => {
+        message.error("Tạo tài khoản thất bại");
+      },
+    }
+  );
   return (
     <Modal
       visible={createAccount}
@@ -45,14 +64,12 @@ const ModalCreateAccount = ({
 
       <Form
         onFinish={(value) => {
-          let valueForm = {
-            id: `${Math.floor(Math.random() * 101)}`,
+          account.mutate({
             name: value.name,
-            email: value.email,
-            permissions: value.permissions?.toString(),
-          };
-          console.log(valueForm);
-          setDataTable([...dataTable, valueForm]);
+            userName: value.email,
+            passWord: value.password,
+            role: value.permissions,
+          });
           setCreateAccount(false);
         }}
         onValuesChange={() => !isDirty && setIsDirty(true)}
@@ -159,27 +176,27 @@ const ModalCreateAccount = ({
                 options={[
                   {
                     label: "Supper Admin",
-                    value: "Supper Admin",
+                    value: 1,
                   },
                   {
                     label: "Admin",
-                    value: "Admin",
+                    value: 2,
                   },
                   {
                     label: "Nurse",
-                    value: "Nurse",
+                    value: 3,
                   },
                   {
                     label: "Doctor",
-                    value: "Doctor",
+                    value: 4,
                   },
                   {
                     label: "Technicians",
-                    value: "Technicians",
+                    value: 5,
                   },
                   {
                     label: "Receptionist",
-                    value: "Receptionist",
+                    value: 6,
                   },
                 ]}
                 autoFocus

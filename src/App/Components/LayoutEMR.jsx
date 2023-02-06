@@ -1,18 +1,16 @@
-import React, { useState } from "react";
 import {
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  LogoutOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import { Route, Router, useNavigate, useParams } from "react-router-dom";
-import Dashboard from "./Dashboard";
-import Meseros from "./Meseros";
-import styled from "styled-components";
 import clsx from "clsx";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 const { Header, Sider, Content } = Layout;
 const LayoutEMR = ({ LeftMenu, routers, type }) => {
   const navigate = useNavigate();
@@ -49,7 +47,6 @@ const LayoutEMR = ({ LeftMenu, routers, type }) => {
           theme="dark"
           mode="inline"
           onClick={({ keyPath }) => {
-            console.log(...keyPath);
             setIsItem(...keyPath);
           }}
           defaultSelectedKeys={["1"]}

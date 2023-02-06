@@ -1,5 +1,8 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
+import { useMutation } from "react-query";
+import axios from "../../../App/api/axios";
+import { LOGIN_URL } from "../../../App/api/urlApi";
 import {
   validateEmail,
   validateMaxLengthStr,
@@ -15,15 +18,33 @@ const ModalEditAccount = ({
   form,
   dataTable,
   setDataTable,
+  refetch,
 }) => {
   const [isDirty, setIsDirty] = useState(false);
   useEffect(() => {
     form.setFieldsValue({
       name: itemAccount.name,
-      email: itemAccount.email,
-      permissions: itemAccount.permissions.split(","),
+      email: itemAccount.userName,
+      passWord: itemAccount.passWord,
+      permissions: itemAccount.role,
     });
   }, []);
+  const changeAccount = useMutation(
+    async (body) => {
+      const response = await axios.put(`${LOGIN_URL}/${itemAccount?.id}`, body);
+      console.log(response);
+    },
+    {
+      onSuccess: () => {
+        message.success("Sửa tài khoản thành công");
+        setEditAccount(false);
+        refetch();
+      },
+      onError: (err) => {
+        message.error("Sửa tài khoản thất bại");
+      },
+    }
+  );
   const handleEditAccount = (valueForm) => {
     const indexValueAccount = dataTable.findIndex(
       (e) => e.id === valueForm?.id
@@ -64,13 +85,13 @@ const ModalEditAccount = ({
       <Form
         form={form}
         onFinish={(value) => {
-          let valueForm = {
-            ...itemAccount,
-            ...value,
-            permissions: value.permissions?.toString(),
-          };
-          console.log(valueForm);
-          handleEditAccount(valueForm);
+          console.log(value);
+          changeAccount.mutate({
+            name: value.name,
+            userName: value.email,
+            passWord: value.passWord,
+            role: value.permissions,
+          });
         }}
         onValuesChange={() => !isDirty && setIsDirty(true)}
         className="text-base grid gap-4"
@@ -79,7 +100,7 @@ const ModalEditAccount = ({
         <div className="mx-4">
           <div className="flex gap-4 ">
             <Item
-              className="w-1/2"
+              className="w-1/3"
               name="name"
               required
               style={{ marginBottom: "8px" }}
@@ -97,7 +118,7 @@ const ModalEditAccount = ({
               <Input type="text" placeholder="Nhập họ và tên" />
             </Item>
             <Item
-              className="w-1/2"
+              className="w-1/3"
               name="email"
               required
               style={{ marginBottom: "8px" }}
@@ -108,6 +129,21 @@ const ModalEditAccount = ({
               ]}
             >
               <Input type="text" placeholder="Nhập email" />
+            </Item>
+            <Item
+              className="w-1/3 "
+              name="passWord"
+              required
+              style={{ marginBottom: "4px" }}
+              label="Mật khẩu"
+              rules={[
+                validateRequireInput("Vui lòng nhập mật khẩu"),
+                validatePassword(
+                  "Vui lòng nhập đúng định dạng: bao gồm chữ, số và các ký tự đặc biệt"
+                ),
+              ]}
+            >
+              <Input placeholder="Nhập mật khẩu" />
             </Item>
           </div>
 
@@ -144,27 +180,27 @@ const ModalEditAccount = ({
                 options={[
                   {
                     label: "Supper Admin",
-                    value: "Supper Admin",
+                    value: 1,
                   },
                   {
                     label: "Admin",
-                    value: "Admin",
+                    value: 2,
                   },
                   {
                     label: "Nurse",
-                    value: "Nurse",
+                    value: 3,
                   },
                   {
                     label: "Doctor",
-                    value: "Doctor",
+                    value: 4,
                   },
                   {
                     label: "Technicians",
-                    value: "Technicians",
+                    value: 5,
                   },
                   {
                     label: "Receptionist",
-                    value: "Receptionist",
+                    value: 6,
                   },
                 ]}
                 autoFocus

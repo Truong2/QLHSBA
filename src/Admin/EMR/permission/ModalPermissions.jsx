@@ -180,19 +180,6 @@ const DrawerFormRole = ({
     const parentKey = treeData.map((x) => x.key);
     // eslint-disable-next-line no-param-reassign
     values.permissions = [...values.permissions, ...parentKey];
-    // if (type === 'add') {
-    //     addMutation.mutate({
-    //         ...values,
-    //         name: trim(values.displayName),
-    //     });
-    // } else
-    //     updateMutation.mutate({
-    //         id: unitInfo.id,
-    //         data: {
-    //             ...values,
-    //             name: trim(values.displayName),
-    //         },
-    //     });
   };
   function onFormChange() {
     let dirty;

@@ -27,7 +27,7 @@ const renderInputForm = (dataFormArr) => {
               <Col span={18} className="form-tag">
                 {item.optional && (
                   <MyTag
-                    text="必須"
+                    text=""
                     className="tag-custom"
                     size="sm"
                     type="required"
@@ -95,6 +95,7 @@ const renderInputForm = (dataFormArr) => {
             key={index}
             label={item.label}
             name={item.name}
+            style={item.style}
             colWidth={item.colWidth}
             rules={item.rules}
             {...item}

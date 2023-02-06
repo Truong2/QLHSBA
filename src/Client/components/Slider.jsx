@@ -41,7 +41,7 @@ const SliderHomepage = () => {
                 src={item.linkImg}
                 alt={item.title}
                 onError={handleErrorImage}
-                style={{ height: "580px" }}
+                style={{ height: "580px", width: "100%" }}
               />
             </div>
           </div>

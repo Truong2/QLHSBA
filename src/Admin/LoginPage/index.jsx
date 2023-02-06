@@ -1,50 +1,60 @@
 import { Button, Form, Input } from "antd";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   validateEmail,
   validatePassword,
   validateRequireInput,
 } from "../.././App/validator";
+import axios from "../../App/api/axios";
+import { LOGIN_URL } from "../../App/api/urlApi";
+import useAuth from "../../App/hooks/useAuth";
 const { Item } = Form;
 
-const LogInClient = () => {
-  const accounts = [
-    {
-      account: "admin@gmail.com",
-      password: "Truong123@",
-      id: "736025",
-      role: true,
-    },
-  ];
-  const [isDone, setIsDone] = useState();
-  const [isDirty, setIsDirty] = useState(false);
+const LogInAdmin = () => {
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-  function onFinish(values) {
-    debugger;
-    accounts?.map((item) => {
-      if (
-        values?.account === item?.account &&
-        values?.password === item?.password
-      ) {
-        debugger;
-        if (item?.role) {
-          localStorage.setItem("token", item?.role);
-          navigate(`/EMR`);
-        } else {
-          localStorage.setItem("token", item?.role);
-          return false;
-        }
-      } else if (
-        values?.account !== item?.account ||
-        values?.password !== item?.password
-      ) {
-        setIsDone(true);
-        localStorage.setItem("token", !isDone);
+
+  const [isDirty, setIsDirty] = useState(false);
+  const { setAuth } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
+  const onFinish = async (value) => {
+    const res = await axios.get(LOGIN_URL);
+    const { data } = res;
+    if (data?.length > 0) {
+      const account = data?.filter(
+        (e) => e.userName === value.userName && e.passWord === value.passWord
+      );
+      if (account?.length > 0) {
+        setLoading(true);
+        setAuth({
+          user: value.userName,
+          pwd: value.passWord,
+          roles: account[0]?.role,
+          accessToken: "test",
+        });
+        localStorage.setItem(
+          "AccountLogin",
+          JSON.stringify({
+            user: value.userName,
+            pwd: value.passWord,
+            roles: account[0]?.role,
+            accessToken: "test",
+          })
+        );
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/emr");
+        }, 2000);
+      } else {
+        setErrMsg("Sai tài khoản hoặc mật khẩu. Vui lòng thử lại");
       }
-    });
-    setIsDirty(false);
-  }
+    }
+  };
+
   return (
     <>
       <div className="overflow-y-hidden bg-[url('https://nhakhoanucuoiviet.vn/frontend/online/images/online_cover.jpg')] ">
@@ -76,10 +86,10 @@ const LogInClient = () => {
                   >
                     <div className="text-[#585858] uppercase text-2xl font-normal text-center mb-5">
                       Quản lý Bệnh án điện tử
-                      {isDone && (
-                        <div className="text-red-600 text-base normal-case p-5 mt-5 bg-red-200">
-                          Tài khoàn hoặc mật khẩu không chính xác
-                        </div>
+                      {errMsg && (
+                        <p className="text-red-600 text-base normal-case	 ">
+                          {errMsg}
+                        </p>
                       )}
                     </div>
                     <Form
@@ -90,7 +100,7 @@ const LogInClient = () => {
                       layout="vertical"
                     >
                       <Item
-                        name="account"
+                        name="userName"
                         label={
                           <>
                             <span className="text-xl text-[#1875BC]">
@@ -107,7 +117,7 @@ const LogInClient = () => {
                         <Input placeholder="Nhập email" />
                       </Item>
                       <Item
-                        name="password"
+                        name="passWord"
                         label={
                           <>
                             <span className="text-xl text-[#1875BC]">
@@ -130,8 +140,8 @@ const LogInClient = () => {
                         <Button
                           size="large"
                           type="primary"
-                          disabled={!isDirty}
                           htmlType="submit"
+                          loading={loading}
                           style={{
                             width: "170px",
                             marginLeft: "10px",
@@ -153,4 +163,4 @@ const LogInClient = () => {
   );
 };
 
-export default LogInClient;
+export default LogInAdmin;

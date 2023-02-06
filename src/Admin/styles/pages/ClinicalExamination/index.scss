@@ -1,0 +1,14 @@
+.ClinicalExamination {
+  .ClinicalExamination-heading {
+    font-size: 18px;
+    padding: 5px;
+    background-color: #007bff;
+    color: white;
+  }
+  .ClinicalExamination-body {
+    background-color: white;
+    .ClinicalExamination-form {
+      padding-top: 20px;
+    }
+  }
+}

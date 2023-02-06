@@ -1,58 +1,28 @@
-import { Routes, Route } from "react-router-dom";
-import Error from "../App/page/Error";
-import SharedLayout from "../Client/Layout/SharedLayout";
-import BookingCare from "../Client/Pages/Booking";
-import HomePage from "../Client/Pages/HomePage";
-import AdminEMR from "./EMR";
-import LogInAdmin from "./LoginPage";
-
-export function AdminRoutes() {
-  return (
-    <Routes>
-      <Route>
-        <Route path="/" element={<AdminEMR />} />
-        <Route path="*" element={<Error />} />
-      </Route>
-    </Routes>
-  );
-}
-
-// import React from "react";
-
-// import { Route } from "react-router-dom";
-
-// import Layout from "../App/Layout";
-
-// const App = ({ element: Component, rest }) => {
-//   return (
-//     <Route
-//       {...rest}
-//       element={(routeProps) => (
-//         <Layout>
-//           <Component {...routeProps} />
-//         </Layout>
-//       )}
-//     />
-//   );
+// import { Suspense } from "react";
+// import { Route, Routes, useLocation } from "react-router-dom";
+// import Error from "../App/page/Error";
+// import RequireAuth from "../RequireAuth";
+// import Layout from "./EMR/layout/Layout";
+// import LogInAdmin from "./LoginPage";
+// const ROLES = {
+//   User: 2001,
+//   Admin: 5150,
 // };
-
-// export default App;
-
-// import React from "react";
-
-// import { LayoutDX } from "app/components/Atoms";
-// import routers from "./routers";
-// import { LeftMenu, Header } from "./layout";
-
-// function SMEPortal() {
+// export function Admin() {
 //   return (
-//     <LayoutDX
-//       type="ADMIN"
-//       Header={Header}
-//       LeftMenu={LeftMenu}
-//       routers={routers}
-//     />
+//     <Suspense fallback={null}>
+//       <Routes>
+//         <Route path="/" element={<Layout />}>
+//           {/* public routes */}
+//           <Route path="login" element={<LogInAdmin />} />
+//           {/* we want to protect these routes */}
+//           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+//             <Route path="/" element={<AdminEMR />} />
+//           </Route>
+
+//           <Route path="*" element={<Error />} />
+//         </Route>
+//       </Routes>
+//     </Suspense>
 //   );
 // }
-
-// export default SMEPortal;

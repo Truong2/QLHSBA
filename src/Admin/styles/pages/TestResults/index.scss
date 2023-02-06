@@ -1,0 +1,17 @@
+.TestResults {
+  .TestResults-heading {
+    font-size: 18px;
+    padding: 5px;
+    background-color: #007bff;
+    color: white;
+  }
+  .TestResults-body {
+    background-color: white;
+    .TestResults-form {
+      padding-top: 20px;
+    }
+  }
+}
+img.ant-image-preview-img {
+  display: inline-block;
+}

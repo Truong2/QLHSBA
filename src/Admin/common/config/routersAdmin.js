@@ -2,10 +2,13 @@ import React from "react";
 import ListAccount from "../../EMR/Account/ListAccount";
 import Schedule from "../../EMR/Appointment/Schedule";
 import Home from "../../EMR/Home";
-import ExaminationProcess from "../../EMR/Patient/ModalPatient";
+import ExaminationProcess from "../../EMR/ExaminationProcess";
 import ListPatient from "../../EMR/Patient/Patient";
 import ListPermission from "../../EMR/permission/permission";
 import PATH_URL from "./pathURLAdmin";
+import DashboardAnalysis from "../../EMR/Dashboard";
+import AddPatient from "../../EMR/Patient/AddPatient";
+import MedicalExaminationHistory from "../../EMR/MedicalExaminationHistory";
 
 const routesAdmin = [
   {
@@ -42,6 +45,30 @@ const routesAdmin = [
     id: 6,
     path: PATH_URL.APPOINTMENT,
     element: <Schedule />,
+    isNoLayout: false,
+  },
+  {
+    id: 7,
+    path: PATH_URL.Analysis,
+    element: <DashboardAnalysis />,
+    isNoLayout: false,
+  },
+  {
+    id: 8,
+    path: PATH_URL.PATIENT_CREATE,
+    element: <AddPatient />,
+    isNoLayout: false,
+  },
+  {
+    id: 9,
+    path: PATH_URL.PATIENT_EDIT,
+    element: <AddPatient edit />,
+    isNoLayout: false,
+  },
+  {
+    id: 10,
+    path: PATH_URL.Medical_Examination_history,
+    element: <MedicalExaminationHistory />,
     isNoLayout: false,
   },
 ];

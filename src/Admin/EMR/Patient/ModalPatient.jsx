@@ -13,7 +13,7 @@ import {
 } from "../../../App/validator";
 
 const { Item } = Form;
-const ExaminationProcess = ({
+const ModalPatient = ({
   setCreateAccount,
   form,
   dataTable,
@@ -32,7 +32,6 @@ const ExaminationProcess = ({
   };
 
   useEffect(() => {
-    debugger;
     if (type === "view" || type === "edit") {
       form.setFieldsValue(itemPatients);
     } else {
@@ -219,7 +218,7 @@ const ExaminationProcess = ({
   const canView = type === "view" ? true : false;
   return (
     <Modal
-      visible={isModalVisible}
+      open={isModalVisible}
       okButtonProps={{ disabled: !isDirty }}
       onCancel={() => setIsModalVisible(false)}
       onOk={() => setIsModalVisible(false)}
@@ -1418,4 +1417,4 @@ const ExaminationProcess = ({
   );
 };
 
-export default ExaminationProcess;
+export default ModalPatient;

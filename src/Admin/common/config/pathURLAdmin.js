@@ -5,6 +5,10 @@ const PATH_URL = {
   HOSPITAL_HISTORY: "/hospital-history",
   ACCOUNT: "/account",
   PERMISSION: "/permission",
-  APPOINTMENT: "/appointment",
+  APPOINTMENT: "/appointment/doctor",
+  Analysis: "/patient/analysis/:id",
+  PATIENT_CREATE: "/patient/create",
+  PATIENT_EDIT: "/patient/edit/:id",
+  Medical_Examination_history: "/patient/medical-examination-history/:id",
 };
 export default PATH_URL;

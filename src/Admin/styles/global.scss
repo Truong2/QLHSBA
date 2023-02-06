@@ -1,4 +1,4 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 // reset style
 #root {
@@ -204,4 +204,13 @@ $sides: (top, bottom, left, right);
     color: #ffffff;
     font-weight: 600;
   }
+}
+.ant-menu.ant-menu-sub.ant-menu-inline {
+  background: rgba(3, 49, 93);
+}
+.ant-form-item-control-input-content {
+  text-align: left;
+}
+.ant-card-head-title {
+  text-align: left;
 }

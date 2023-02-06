@@ -2,6 +2,7 @@ import { Button, Form, Select, Table, Tag } from "antd";
 import React from "react";
 import { useState } from "react";
 import SearchCommon from "../../../App/hooks/SearchCommon";
+import UrlBreadcrumb from "../../common/utils/UrlBreadcrumb";
 import DrawerFormRole from "./ModalPermissions";
 
 let dataSource = [
@@ -116,59 +117,59 @@ const ListPermission = () => {
     form.resetFields();
   };
   return (
-    <div className="">
-      <div className="py-[15px] px-2">
-        <div className="container-fluid">
-          <div className="flex items-center justify-start mx-4">
-            <div className="mr-4 pt-2">
-              <h1 className="uppercase text-xl">Danh Sách Nhóm Quyền</h1>
-            </div>
-            <div className="flex items-center justify-center">
-              <Button
-                size="large"
-                type="primary"
-                onClick={() => {
-                  setType("add");
-                  setIsModalVisible(true);
-                }}
-              >
-                <i className="fas fa-plus"></i> Thêm mới
-              </Button>
+    <>
+      <UrlBreadcrumb type={"permission"} style={{ margin: "20px" }} />
+
+      <div className="bg-white">
+        <div className="py-[15px] px-2">
+          <div className="container-fluid">
+            <div className="flex items-center justify-start mx-4">
+              <div className="mr-4 pt-2">
+                <h1 className="uppercase text-xl">Danh Sách Nhóm Quyền</h1>
+              </div>
+              <div className="flex items-center justify-center">
+                <Button
+                  size="large"
+                  type="primary"
+                  onClick={() => {
+                    setType("add");
+                    setIsModalVisible(true);
+                  }}
+                >
+                  <i className="fas fa-plus"></i> Thêm mới
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="px-5">
-        <div className="flex gap-4 mb-8 w-[50%]">
-          <SearchCommon
-            className="w-72"
-            placeholder="Tên vai trò"
-            // onSearch={onChangeOneParam('displayName')}
-            maxLength={100}
-            // defaultValue={displayName}
-          />
+        <div className="px-5">
+          <div className="flex gap-4 mb-8 w-[50%]">
+            <SearchCommon
+              className="w-72"
+              placeholder="Tên vai trò"
+              maxLength={100}
+            />
 
-          <Select
-            className="w-72"
-            defaultValue="Trạng thái: Tất cả"
-            onSelect={"status"}
-            options={statusOptions}
-          />
+            <Select
+              className="w-72"
+              defaultValue="Trạng thái: Tất cả"
+              onSelect={"status"}
+              options={statusOptions}
+            />
+          </div>
+          <Table bordered={true} dataSource={dataTable} columns={columns} />
         </div>
-        <Table bordered={true} dataSource={dataTable} columns={columns} />
-      </div>
 
-      <DrawerFormRole
-        type={type}
-        form={form}
-        // refetch={refetch}
-        // unitInfo={unitInfo}
-        canEdit
-        closeForm={closeForm}
-        isModalVisible={isModalVisible}
-        itemForm={itemForm}
-      />
-    </div>
+        <DrawerFormRole
+          type={type}
+          form={form}
+          canEdit
+          closeForm={closeForm}
+          isModalVisible={isModalVisible}
+          itemForm={itemForm}
+        />
+      </div>
+    </>
   );
 };
 

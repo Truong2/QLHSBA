@@ -40,7 +40,6 @@ const MedicalSchedule = () => {
           nameDoctor: value?.nameDoctor,
           timeScheduleDoctor,
         };
-        console.log(timeScheduleDoctor, valueDateSchedule);
         localStorage.setItem("timeSchedule", JSON.stringify(valueDateSchedule));
         if (
           timeScheduleDoctor.dateSchedule !==

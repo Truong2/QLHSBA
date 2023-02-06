@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { Layout } from 'antd';
+import { Layout } from "antd";
 
 const Footer = () => {
   return (
-    <Layout.Footer style={{ textAlign: 'center' }}>Cod3a ©2020</Layout.Footer>
+    <Layout.Footer style={{ textAlign: "center" }}>
+      Trường Nguyễn ©2022
+    </Layout.Footer>
   );
 };
 

@@ -32,7 +32,6 @@ const PopUpSchedule = ({
   const [isDirty, setIsDirty] = useState(false);
 
   const onChange = (e) => {
-    console.log("radio checked", e.target.value);
     setValueRadio(e.target.value);
   };
   const onChangeSelect = (value) => {
@@ -202,7 +201,6 @@ const PopUpSchedule = ({
     return list;
   }
   function onFinish(values) {
-    console.log(values);
     setIsDirty(false);
     setIsSchedule(false);
   }
@@ -402,7 +400,6 @@ const PopUpSchedule = ({
                   className="w-full flex-1"
                   placeholder="Quận huyện"
                   onChange={(value) => {
-                    console.log(value);
                     // onChangeSelect();
                   }}
                   optionFilterProp="children"
@@ -441,7 +438,6 @@ const PopUpSchedule = ({
                   className="w-full flex-1"
                   placeholder="Xã / Phường / Thị Trấn"
                   onChange={(value) => {
-                    console.log(value);
                     // onChangeSelect();
                   }}
                   optionFilterProp="children"
@@ -480,7 +476,6 @@ const PopUpSchedule = ({
                   className="w-full flex-1"
                   placeholder="Tổ / Khu / Thôn / Xóm"
                   onChange={(value) => {
-                    console.log(value);
                     // onChangeSelect();
                   }}
                   optionFilterProp="children"
@@ -694,7 +689,6 @@ const PopUpSchedule = ({
                 className="w-full flex-1"
                 placeholder="Quận huyện"
                 onChange={(value) => {
-                  console.log(value);
                   // onChangeSelect();
                 }}
                 optionFilterProp="children"
@@ -717,7 +711,6 @@ const PopUpSchedule = ({
                 className="w-full flex-1"
                 placeholder="Xã / Phường / Thị Trấn"
                 onChange={(value) => {
-                  console.log(value);
                   // onChangeSelect();
                 }}
                 optionFilterProp="children"
@@ -740,7 +733,6 @@ const PopUpSchedule = ({
                 className="w-full flex-1"
                 placeholder="Tổ / Khu / Thôn / Xóm"
                 onChange={(value) => {
-                  console.log(value);
                   // onChangeSelect();
                 }}
                 optionFilterProp="children"

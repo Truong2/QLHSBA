@@ -1,5 +1,5 @@
 import { Col, ConfigProvider, DatePicker, Form } from "antd";
-import locale from "antd/lib/locale/ja_JP";
+import locale from "antd/lib/locale/vi_VN";
 import PropTypes from "prop-types";
 import React from "react";
 import {
@@ -19,13 +19,14 @@ function MyDatePicker({
   isRangePicker,
   isDateTimePicker,
   colWidth,
+  style,
   showTime = true,
   ...props
 }) {
   const { disabledDate } = props;
   return (
     <ConfigProvider locale={locale}>
-      <Col xs={colWidth || 24}>
+      <Col className="find-patient-col" xs={colWidth || 24}>
         <Form.Item
           label={label}
           name={name}
@@ -35,6 +36,7 @@ function MyDatePicker({
           {isRangePicker ? (
             <RangePicker
               disabledDate={disabledDate}
+              style={style}
               format={(value) =>
                 isDateTimePicker
                   ? formatDateTime(value, typePicker)
@@ -55,6 +57,7 @@ function MyDatePicker({
               // }
               showToday={false}
               picker={typePicker}
+              style={style}
               {...props}
               showTime={showTime}
               format={

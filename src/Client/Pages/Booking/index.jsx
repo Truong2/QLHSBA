@@ -30,8 +30,6 @@ const BookingCare = () => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   const onChange = (value) => {
-    console.log(`time: ${value}`);
-    console.log(moment(value).format("dddd - DD/MM"));
     setTimeSchedule(value);
     const timeDate = JSON.parse(localStorage.getItem("timeSchedule"));
     if (
