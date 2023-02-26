@@ -19,6 +19,7 @@ import {
   Row,
   Spin,
   Table,
+  Tag,
 } from "antd";
 import axios from "../../.././App/api/axios.js";
 import { PATIENT_LIST } from "../../.././App/api/urlApi.js";
@@ -31,6 +32,7 @@ import { TYPE_FIELD } from "../../common/constant";
 import renderInputForm from "../../common/utils/renderInputForm";
 import UrlBreadcrumb from "../../common/utils/UrlBreadcrumb";
 import MyDialog from "../components/common/MyDialog";
+
 function ListCamera() {
   const { confirm } = Modal;
   const navigate = useNavigate();
@@ -56,12 +58,15 @@ function ListCamera() {
     { key: 11, checked: false },
     { key: 12, checked: false },
     { key: 13, checked: false },
+    { key: 14, checked: false },
+    { key: 15, checked: false },
   ]);
 
   const { data, refetch, isFetching } = useQuery(
     ["getListPatient"],
     async () => {
       const res = await axios.get(PATIENT_LIST);
+
       setDataRender(res?.data);
       return res?.data;
     },
@@ -137,42 +142,46 @@ function ListCamera() {
   const columns = [
     {
       hidden: hideColumn[0]?.checked,
+      title: "Mã bệnh nhân",
+      dataIndex: "patient_id",
+      key: "patient_id",
+      fixed: "left",
+      width: 140,
+    },
+    {
+      hidden: hideColumn[1]?.checked,
       title: "Tên bệnh nhân",
       dataIndex: "name",
       key: "name",
       fixed: "left",
       render: (_, values) => {
         return (
-          <a className="fw-600" style={{ color: "#000000" }}>
+          <Link
+            to={`detail/${values.id}`}
+            className="fw-600"
+            style={{ color: "blue" }}
+          >
             {values.name}
-          </a>
+          </Link>
         );
       },
       width: 200,
     },
     {
-      hidden: hideColumn[1].checked,
+      hidden: hideColumn[2].checked,
       title: "Giới tính",
       dataIndex: "sex",
       key: "sex",
       width: 100,
     },
     {
-      hidden: hideColumn[2].checked,
+      hidden: hideColumn[3].checked,
       title: "Năm sinh",
       dataIndex: "birth",
       key: "birth",
       render: (_, values) => {
         return <span>{moment(values.birth).format("DD/MM/YYYY")}</span>;
       },
-      width: 180,
-      ellipsis: true,
-    },
-    {
-      hidden: hideColumn[3].checked,
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
       width: 180,
       ellipsis: true,
     },
@@ -186,14 +195,6 @@ function ListCamera() {
     },
     {
       hidden: hideColumn[5].checked,
-      title: "Mã bệnh nhân",
-      dataIndex: "patientCode",
-      key: "patientCode",
-      width: 150,
-      ellipsis: true,
-    },
-    {
-      hidden: hideColumn[6].checked,
       title: "Mã bệnh án",
       dataIndex: "patientNoteCode",
       key: "patientNoteCode",
@@ -201,23 +202,15 @@ function ListCamera() {
       ellipsis: true,
     },
     {
+      hidden: hideColumn[6].checked,
+      title: "Loại bệnh án",
+      dataIndex: "patientCode",
+      key: "patientCode",
+      width: 150,
+      ellipsis: true,
+    },
+    {
       hidden: hideColumn[7].checked,
-      title: "Phòng",
-      dataIndex: "room",
-      key: "room",
-      width: 200,
-      ellipsis: true,
-    },
-    {
-      hidden: hideColumn[8].checked,
-      title: "Giường",
-      dataIndex: "bed",
-      key: "bed",
-      width: 100,
-      ellipsis: true,
-    },
-    {
-      hidden: hideColumn[9].checked,
       title: "Khoa điều trị",
       dataIndex: "department",
       key: "department",
@@ -225,11 +218,27 @@ function ListCamera() {
       ellipsis: true,
     },
     {
+      hidden: hideColumn[8].checked,
+      title: "Phòng",
+      dataIndex: "room",
+      key: "room",
+      width: 200,
+      ellipsis: true,
+    },
+    {
+      hidden: hideColumn[9].checked,
+      title: "Giường",
+      dataIndex: "bed",
+      key: "bed",
+      width: 100,
+      ellipsis: true,
+    },
+    {
       hidden: hideColumn[10].checked,
-      title: "Ngày vào",
+      title: "Thời gian vào viện",
       dataIndex: "dayIn",
       render: (_, values) => {
-        return <span>{moment(values.dayIn).format(" DD/MM/YYYY")}</span>;
+        return <span>{moment(values.dayIn).format("HH:MM DD/MM/YYYY")}</span>;
       },
       key: "dayIn",
       width: 150,
@@ -253,6 +262,30 @@ function ListCamera() {
     },
     {
       hidden: hideColumn[13].checked,
+      title: "Địa chỉ",
+      dataIndex: "address",
+      key: "address",
+      width: 400,
+      ellipsis: true,
+    },
+    {
+      hidden: hideColumn[14].checked,
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      width: 200,
+      render: (record) => {
+        return (
+          <>
+            {console.log(record)}
+            {record === 1 && <Tag color="green">Mới</Tag>}
+          </>
+        );
+      },
+      ellipsis: true,
+    },
+    {
+      hidden: hideColumn[15].checked,
       title: "Hành động",
       key: "action",
       width: 120,
@@ -273,7 +306,7 @@ function ListCamera() {
         </>
       ),
     },
-  ].filter((item) => !item.hidden);
+  ];
 
   const fieldsDataForm = [
     {
@@ -347,23 +380,25 @@ function ListCamera() {
     current: pagination?.current,
     total: pagination?.total,
   };
-
-  const dataOptionsTable = [
-    { key: 0, name: "Tên bệnh nhân" },
-    { key: 1, name: "Giới tính" },
-    { key: 2, name: "Năm sinh" },
-    { key: 3, name: "Email" },
-    { key: 4, name: "Số điện thoại" },
-    { key: 5, name: "Mã bệnh nhân" },
-    { key: 6, name: "Mã bệnh án" },
-    { key: 7, name: "Phòng" },
-    { key: 8, name: "Giường" },
-    { key: 9, name: "Khoa điều trị" },
-    { key: 10, name: "Ngày vào" },
-    { key: 11, name: "Chẩn đoán" },
-    { key: 12, name: "Bác sĩ điều trị" },
-    { key: 13, name: "Hành động" },
-  ];
+  const dataOptionsTable = columns?.map((column, index) => ({
+    key: index,
+    name: column.title,
+  }));
+  // const dataOptionsTable = [
+  //   { key: 0, name: "Tên bệnh nhân" },
+  //   { key: 1, name: "Giới tính" },
+  //   { key: 2, name: "Năm sinh" },
+  //   { key: 3, name: "Số điện thoại" },
+  //   { key: 4, name: "Mã bệnh án" },
+  //   { key: 5, name: "Loại bệnh án" },
+  //   { key: 6, name: "Khoa điều trị" },
+  //   { key: 7, name: "Phòng" },
+  //   { key: 8, name: "Giường" },
+  //   { key: 10, name: "Thời gian vào viện" },
+  //   { key: 11, name: "Chẩn đoán" },
+  //   { key: 12, name: "Bác sĩ điều trị" },
+  //   { key: 13, name: "Hành động" },
+  // ];
 
   const onSubmitForm = () => {};
   const handleCheckbox = (value) => {
@@ -532,7 +567,7 @@ function ListCamera() {
                     }
                   }}
                   rowSelection={rowSelection}
-                  columns={columns}
+                  columns={columns.filter((item) => !item.hidden)}
                   dataSource={dataRender?.sort(function (a, b) {
                     return b.id - a.id;
                   })}

@@ -41,6 +41,20 @@ const BREADCRUMBS = {
       url: "",
     },
   ],
+  patientDetail: [
+    {
+      name: "Trang chủ",
+      url: "",
+    },
+    {
+      name: "Danh sách bệnh nhân",
+      url: "/EMR/patient",
+    },
+    {
+      name: "Thông tin bệnh nhân",
+      url: "",
+    },
+  ],
   analysis: [
     {
       name: "Trang chủ",

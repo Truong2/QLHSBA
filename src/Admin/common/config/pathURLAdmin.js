@@ -9,6 +9,7 @@ const PATH_URL = {
   Analysis: "/patient/analysis/:id",
   PATIENT_CREATE: "/patient/create",
   PATIENT_EDIT: "/patient/edit/:id",
+  PATIENT_DETAIL: "/patient/detail/:id",
   Medical_Examination_history: "/patient/medical-examination-history/:id",
 };
 export default PATH_URL;

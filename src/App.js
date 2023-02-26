@@ -14,7 +14,6 @@ import LogInClient from "./Client/Pages/LoginPage/index";
 import { privateRoutes } from "./Client/routersCliemt";
 
 function App() {
-  const [user, setUser] = useState(null);
   return (
     <Suspense fallback={null}>
       <ScrollToTop />

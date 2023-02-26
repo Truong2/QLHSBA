@@ -57,11 +57,7 @@ export const ItemMenu = [
       { label: "Quá trình khám bệnh", key: "hospital-history" },
     ],
   },
-  {
-    key: "1",
-    icon: <ForkOutlined />,
-    label: "Khám bệnh và điều trị",
-  },
+
   {
     key: "13",
     icon: <ForkOutlined />,

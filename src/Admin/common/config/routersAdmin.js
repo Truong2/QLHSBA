@@ -7,7 +7,7 @@ import ListPatient from "../../EMR/Patient/Patient";
 import ListPermission from "../../EMR/permission/permission";
 import PATH_URL from "./pathURLAdmin";
 import DashboardAnalysis from "../../EMR/Dashboard";
-import AddPatient from "../../EMR/Patient/AddPatient";
+import AddPatient from "../../EMR/Patient/Components/AddPatient";
 import MedicalExaminationHistory from "../../EMR/MedicalExaminationHistory";
 
 const routesAdmin = [
@@ -67,6 +67,12 @@ const routesAdmin = [
   },
   {
     id: 10,
+    path: PATH_URL.PATIENT_DETAIL,
+    element: <AddPatient detail />,
+    isNoLayout: false,
+  },
+  {
+    id: 11,
     path: PATH_URL.Medical_Examination_history,
     element: <MedicalExaminationHistory />,
     isNoLayout: false,

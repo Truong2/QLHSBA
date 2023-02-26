@@ -35,7 +35,7 @@ const BookingCareDetail = () => {
   return (
     <div className="overflow-hidden">
       {/* Header */}
-      <div className="w-[100%] py-5 bg-[#45C3D2] px-10 pt-10">
+      <div className="w-[100%] py-5 bg-[#45C3D2] px-10 mt-7 ">
         <Breadcrumb>
           <Breadcrumb.Item href="/">
             <HomeOutlined style={{ fontSize: "20px" }} />
@@ -81,36 +81,7 @@ const BookingCareDetail = () => {
                       Hà Nội
                     </span>{" "}
                   </div>
-                  <div class="bs-fb">
-                    {/* <div
-                      class="fb-like fb_iframe_widget"
-                      data-width=""
-                      data-layout="button_count"
-                      data-action="like"
-                      data-size="small"
-                      data-share="true"
-                      fb-xfbml-state="rendered"
-                      fb-iframe-plugin-query="action=like&amp;app_id=1029975067121593&amp;container_width=535&amp;href=https%3A%2F%2Fbookingcare.vn%2Fpho-giao-su-tien-si-vu-thi-thanh-thuy-d118.html%3Fck%3D1%26dv%3D1&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;size=small&amp;width="
-                    >
-                      <span style="vertical-align: bottom; width: 150px; height: 28px;">
-                        <iframe
-                          name="f5a262e638142"
-                          width="1000px"
-                          height="1000px"
-                          data-testid="fb:like Facebook Social Plugin"
-                          title="fb:like Facebook Social Plugin"
-                          frameborder="0"
-                          allowtransparency="true"
-                          allowfullscreen="true"
-                          scrolling="no"
-                          allow="encrypted-media"
-                          src="https://www.facebook.com/v14.0/plugins/like.php?action=like&amp;app_id=1029975067121593&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df33e263a630d03c%26domain%3Dbookingcare.vn%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fbookingcare.vn%252Ff27c69574581a64%26relation%3Dparent.parent&amp;container_width=535&amp;href=https%3A%2F%2Fbookingcare.vn%2Fpho-giao-su-tien-si-vu-thi-thanh-thuy-d118.html%3Fck%3D1%26dv%3D1&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;size=small&amp;width="
-                          style="border: none; visibility: visible; width: 150px; height: 28px;"
-                          class=""
-                        ></iframe>
-                      </span>
-                    </div> */}
-                  </div>
+                  <div class="bs-fb"></div>
                 </div>
               </div>
             </div>
